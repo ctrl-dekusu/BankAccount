@@ -3,6 +3,9 @@ package packages;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Bank Account Manager
+ */
 public class BankAccountManager implements Bank {
     private Map<Integer, BankAccount> accounts;
     private int id;
@@ -37,7 +40,8 @@ public class BankAccountManager implements Bank {
 
         // Prints the user's details if found
         System.out.println("Account found!");
-        System.out.println("ID: " + id + "\nAccount: " + account.getOwnerName() + "\nBalance: " + account.amountFormatter(account.getBalance()) + "\n");
+        System.out.println("ID: " + id + "\nAccount: " + account.getOwnerName() + "\nBalance: "
+                + account.amountFormatter(account.getBalance()) + "\n");
     };
 
     // List all acounts created
@@ -55,7 +59,8 @@ public class BankAccountManager implements Bank {
             Integer accountId = entry.getKey();
             BankAccount account = entry.getValue();
 
-            System.out.println("ID: " + accountId + "\nAccount: " + account.getOwnerName() + "\nBalance: " + account.amountFormatter(account.getBalance()) + "\n");
+            System.out.println("ID: " + accountId + "\nAccount: " + account.getOwnerName() + "\nBalance: "
+                    + account.amountFormatter(account.getBalance()) + "\n");
         }
     }
 }

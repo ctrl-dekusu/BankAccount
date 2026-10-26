@@ -1,8 +1,13 @@
 package packages;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import exceptions.AccountFrozenException;
+import exceptions.InsufficientFundsException;
+import exceptions.InvalidAmountException;
 
 /**
  * 
@@ -15,6 +20,10 @@ public class BankAccount {
     private String ownerName;
     private List<Transaction> transactionHistory;
 
+    public String FROZEN_ACCOUNT = "Account is FROZEN. Unable to transact.";
+    public String INVALID_AMOUNT = "Invalid amount. Must be greater than 0.";
+    public String INSUFFICIENT_BALANCE = "Insufficient balance.";
+
     public BankAccount() {
         this.balance = 0;
         this.isFrozen = false;
@@ -26,18 +35,21 @@ public class BankAccount {
     }
 
     // Deposit money in account
-    public void deposit(double amount) {
-        // Checks if account is frozen
-        if (isFrozen() == true) {
-            System.out.println("Account is FROZEN.\nUnable to transact.");
-            return;
-        }
+    public void deposit(double amount) throws AccountFrozenException, InvalidAmountException {
+        try {
+            // Checks if account is frozen
+            if (isFrozen() == true)
+                throw new AccountFrozenException(FROZEN_ACCOUNT); 
 
-        // Checks if amount is less than or equal to 0
-        if (amount <= 0) {
-            System.out.println("Amount deposited:\n" + amountFormatter(amount));
-            System.out.println("Invalid amount. Must be greater than 0");
-            return;
+            // Checks if amount is less than or equal to 0
+            if (amount <= 0) {
+                System.out.println("Amount deposited:\n" + amountFormatter(amount));
+                throw new InvalidAmountException(INVALID_AMOUNT);
+            }
+        } catch (AccountFrozenException f) {
+            System.out.println(f.getMessage());
+        } catch (InvalidAmountException a) {
+            System.out.println(a.getMessage());
         }
 
         // Updates balance if it passed the check
@@ -48,18 +60,28 @@ public class BankAccount {
     }
 
     // Withdraw money in account
-    public void withdraw(double amount) {
-        // Checks if account is frozen
-        if (isFrozen() == true) {
-            System.out.println("Account is FROZEN.\nUnable to transact.");
-            return;
-        }
+    public void withdraw(double amount) throws AccountFrozenException, InsufficientFundsException, InvalidAmountException {
+        try {
+            // Checks if account is frozen
+            if (isFrozen() == true) {
+                throw new AccountFrozenException(FROZEN_ACCOUNT);
+            }
 
-        // Checks if amount is less than or equal to 0
-        if (amount <= 0) {
-            System.out.println("Amount withdrawn:\n" + amountFormatter(amount));
-            System.out.println("Invalid amount. Must be greater than 0");
-            return;
+            // Checks if amount is less than or equal to 0
+            if (amount <= 0) {
+                throw new InsufficientFundsException(INVALID_AMOUNT);
+            }
+
+            // Checks if amount is greater than balance
+            if (amount > this.getBalance()) {
+                throw new InvalidAmountException(INSUFFICIENT_BALANCE);
+            }
+        } catch (AccountFrozenException f) {
+            System.out.println(f.getMessage());
+        } catch (InvalidAmountException a) {
+            System.out.println(a.getMessage());
+        } catch (InsufficientFundsException x) {
+            System.out.println(x.getMessage());
         }
 
         // Updates balance if it passed the check
@@ -98,5 +120,13 @@ public class BankAccount {
             Transaction hist = history.next();
             System.out.println(hist);
         }
+    }
+
+    public List<Transaction> filterTransactionsAtOrAbove(double amount, List<Transaction> txList) {
+        return transactionHistory;
+    }
+
+    public List<Transaction> sortTransactionsByAmount(List<Transaction> txList) {
+        return transactionHistory;
     }
 }
