@@ -4,7 +4,7 @@ package exceptions;
  * InsufficientFundsException.
  */
 public class InsufficientFundsException extends Exception {
-    private  String message;
+    private String message;
 
     public InsufficientFundsException(String message) {
         this.message = message;

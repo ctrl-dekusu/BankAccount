@@ -1,7 +1,11 @@
 package packages;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Bank Account Manager
@@ -9,6 +13,8 @@ import java.util.Map;
 public class BankAccountManager implements Bank {
     private Map<Integer, BankAccount> accounts;
     private int id;
+    
+    public int MAX_ACCOUNT = 100;
 
     public BankAccountManager() {
         this.accounts = new HashMap<>();
@@ -18,8 +24,8 @@ public class BankAccountManager implements Bank {
     // Adds a bank account
     public void addAccount(BankAccount account) {
         // Checks if the account limit is reached
-        if (accounts.size() >= 100) {
-            System.out.println("Maximum number of account reached " + accounts.size() + "/100");
+        if (accounts.size() >= MAX_ACCOUNT) {
+            System.out.println("Maximum number of account reached " + accounts.size() + "/" + MAX_ACCOUNT);
             return;
         }
 
@@ -59,8 +65,30 @@ public class BankAccountManager implements Bank {
             Integer accountId = entry.getKey();
             BankAccount account = entry.getValue();
 
-            System.out.println("ID: " + accountId + "\nAccount: " + account.getOwnerName() + "\nBalance: "
+            System.out.println("ID: " + accountId + "\nAccount: " 
+                    + account.getOwnerName() + "\nBalance: "
                     + account.amountFormatter(account.getBalance()) + "\n");
         }
+    }
+
+    public List<Transaction> filterTransactionsAtOrAbove(double amount, List<Transaction> txList) {
+        if (txList == null) {
+            return new ArrayList<>();
+        }
+        
+        return txList.stream()
+                .filter(t -> t != null && t.getAmount() >= amount)
+                .collect(Collectors.toList());
+    }
+
+    public List<Transaction> sortTransactionsByAmount(List<Transaction> txList) {
+        if (txList == null) {
+            return new ArrayList<>();
+        }
+
+        return txList.stream()
+                .filter(t -> t != null)
+                .sorted(Comparator.comparingDouble(Transaction::getAmount))
+                .collect(Collectors.toList());
     }
 }

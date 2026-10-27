@@ -2,8 +2,11 @@ package packages;
 
 import java.io.EOFException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.*;
 
 import exceptions.AccountFrozenException;
 import exceptions.InsufficientFundsException;
@@ -35,11 +38,12 @@ public class BankAccount {
     }
 
     // Deposit money in account
-    public void deposit(double amount) throws AccountFrozenException, InvalidAmountException {
+    public void deposit(double amount) throws AccountFrozenException, 
+                                        InvalidAmountException {
         try {
             // Checks if account is frozen
             if (isFrozen() == true)
-                throw new AccountFrozenException(FROZEN_ACCOUNT); 
+                throw new AccountFrozenException(FROZEN_ACCOUNT);
 
             // Checks if amount is less than or equal to 0
             if (amount <= 0) {
@@ -48,8 +52,10 @@ public class BankAccount {
             }
         } catch (AccountFrozenException f) {
             System.out.println(f.getMessage());
+            return;
         } catch (InvalidAmountException a) {
             System.out.println(a.getMessage());
+            return;
         }
 
         // Updates balance if it passed the check
@@ -60,7 +66,8 @@ public class BankAccount {
     }
 
     // Withdraw money in account
-    public void withdraw(double amount) throws AccountFrozenException, InsufficientFundsException, InvalidAmountException {
+    public void withdraw(double amount) throws AccountFrozenException, 
+                                        InsufficientFundsException, InvalidAmountException {
         try {
             // Checks if account is frozen
             if (isFrozen() == true) {
@@ -78,10 +85,13 @@ public class BankAccount {
             }
         } catch (AccountFrozenException f) {
             System.out.println(f.getMessage());
+            return;
         } catch (InvalidAmountException a) {
             System.out.println(a.getMessage());
+            return;
         } catch (InsufficientFundsException x) {
             System.out.println(x.getMessage());
+            return;
         }
 
         // Updates balance if it passed the check
@@ -112,21 +122,15 @@ public class BankAccount {
     }
 
     // Lists the transaction history
-    public void getTransactionHistory() {
+    public List<Transaction> getTransactionHistory() {
         System.out.println("Account: " + getOwnerName());
         Iterator<Transaction> history = this.transactionHistory.iterator();
-        
+
         while (history.hasNext()) {
             Transaction hist = history.next();
             System.out.println(hist);
         }
-    }
 
-    public List<Transaction> filterTransactionsAtOrAbove(double amount, List<Transaction> txList) {
-        return transactionHistory;
-    }
-
-    public List<Transaction> sortTransactionsByAmount(List<Transaction> txList) {
-        return transactionHistory;
+        return this.transactionHistory;
     }
 }

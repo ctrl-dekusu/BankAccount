@@ -14,13 +14,23 @@ public class Transaction {
         this.time_stamp = LocalDateTime.now();
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public LocalDateTime getTimeStamp() {
+        return time_stamp;
+    }
+
     public String toString() {
-        DateTimeFormatter time = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String formattedTime = this.time_stamp.format(time);
-        String transactionType = "Type = " + this.type;
-        String transactionAmount = "Amount = " + this.amount;
-        String transactionTime = "Time_stamp = " + formattedTime; 
-        return "[Transaction [" + transactionType + ", " + transactionAmount + ", " + transactionTime + "]...]";
-        //[Transaction [type=Deposit, amount=1000.125, time_stamp=2026-06-10 09:41]...]
+        DateTimeFormatter timeFormatter = DateTimeFormatter
+                                        .ofPattern("dd-MM-yyyy HH:mm");
+        return String
+            .format("[Transaction [Type = %s, Amount = %.2f, Time_stamp = %s]]",
+            type, amount, time_stamp.format(timeFormatter));
     }
 }

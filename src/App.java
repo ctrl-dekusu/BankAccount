@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Test Case 1
-        BankAccount acc1 = new SavingsAccount("Test 0");
+        BankAccount acc1 = new SavingsAccount("Account 1");
         BankAccountManager manager1 = new BankAccountManager();
         manager1.addAccount(acc1);
         System.out.println();
@@ -17,6 +17,9 @@ public class App {
 
         System.out.println();
         acc1.deposit(1000.125);
+
+        System.out.println();
+        acc1.withdraw(500);
 
         System.out.println();
         acc1.deposit(0);
@@ -32,8 +35,13 @@ public class App {
 
         System.out.println();
         manager1.listAccounts();
-
+        
         manager1.getAccount(0);
+        
+        System.out.println();
+        
+        manager1.filterTransactionsAtOrAbove(500, acc1.getTransactionHistory());
 
+        manager1.sortTransactionsByAmount(acc1.getTransactionHistory());
     }
 }
