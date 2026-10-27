@@ -1,12 +1,8 @@
 package packages;
 
-import java.io.EOFException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.*;
 
 import exceptions.AccountFrozenException;
 import exceptions.InsufficientFundsException;
@@ -16,7 +12,6 @@ import exceptions.InvalidAmountException;
  * 
  * BankAccount
  */
-
 public class BankAccount {
     private double balance;
     private boolean isFrozen;
@@ -38,8 +33,9 @@ public class BankAccount {
     }
 
     // Deposit money in account
-    public void deposit(double amount) throws AccountFrozenException, 
-                                        InvalidAmountException {
+    public void deposit(double amount) throws 
+        AccountFrozenException, 
+        InvalidAmountException {
         try {
             // Checks if account is frozen
             if (isFrozen() == true)
@@ -47,7 +43,8 @@ public class BankAccount {
 
             // Checks if amount is less than or equal to 0
             if (amount <= 0) {
-                System.out.println("Amount deposited:\n" + amountFormatter(amount));
+                System.out.println("Amount deposited:\n" + 
+                                    amountFormatter(amount));
                 throw new InvalidAmountException(INVALID_AMOUNT);
             }
         } catch (AccountFrozenException f) {
@@ -62,12 +59,15 @@ public class BankAccount {
         this.balance += amount;
         this.transactionHistory.add(new Transaction("Deposit", amount));
         System.out.println("Amount deposited:\n" + amountFormatter(amount));
-        System.out.println("Current balance:\n" + amountFormatter(this.getBalance()));
+        System.out.println("Current balance:\n" + 
+                            amountFormatter(this.getBalance()));
     }
 
     // Withdraw money in account
-    public void withdraw(double amount) throws AccountFrozenException, 
-                                        InsufficientFundsException, InvalidAmountException {
+    public void withdraw(double amount) throws 
+        AccountFrozenException, 
+        InsufficientFundsException, 
+        InvalidAmountException {
         try {
             // Checks if account is frozen
             if (isFrozen() == true) {
@@ -98,7 +98,8 @@ public class BankAccount {
         this.balance -= amount;
         this.transactionHistory.add(new Transaction("Withdraw", amount));
         System.out.println("Amount withdrawn:\n" + amountFormatter(amount));
-        System.out.println("Current balance:\n" + amountFormatter(this.getBalance()));
+        System.out.println("Current balance:\n" + 
+                            amountFormatter(this.getBalance()));
     }
 
     public double getBalance() {

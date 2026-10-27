@@ -22,6 +22,9 @@ public class App {
         acc1.withdraw(500);
 
         System.out.println();
+        acc1.withdraw(200);
+
+        System.out.println();
         acc1.deposit(0);
 
         System.out.println();
@@ -40,7 +43,7 @@ public class App {
         
         System.out.println();
         
-        manager1.filterTransactionsAtOrAbove(500, acc1.getTransactionHistory());
+        manager1.filterTransactionsAtOrAbove(500.00, acc1.getTransactionHistory());
 
         manager1.sortTransactionsByAmount(acc1.getTransactionHistory());
     }

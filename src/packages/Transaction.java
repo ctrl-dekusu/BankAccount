@@ -3,6 +3,10 @@ package packages;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 
+ * Transaction
+ */
 public class Transaction {
     private String type;
     private double amount;
@@ -28,7 +32,7 @@ public class Transaction {
 
     public String toString() {
         DateTimeFormatter timeFormatter = DateTimeFormatter
-                                        .ofPattern("dd-MM-yyyy HH:mm");
+                            .ofPattern("dd-MM-yyyy HH:mm");
         return String
             .format("[Transaction [Type = %s, Amount = %.2f, Time_stamp = %s]",
             type, amount, time_stamp.format(timeFormatter));

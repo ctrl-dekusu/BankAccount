@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * InsufficientFundsException.
+ * Insuffiecient funds exception
  */
 public class InsufficientFundsException extends Exception {
     private String message;
