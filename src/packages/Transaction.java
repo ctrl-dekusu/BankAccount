@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Transaction {
-    public String type;
-    public double amount;
-    public LocalDateTime time_stamp;
+    private String type;
+    private double amount;
+    private LocalDateTime time_stamp;
 
     public Transaction(String type, double amount) {
         this.type = type;
@@ -30,7 +30,7 @@ public class Transaction {
         DateTimeFormatter timeFormatter = DateTimeFormatter
                                         .ofPattern("dd-MM-yyyy HH:mm");
         return String
-            .format("[Transaction [Type = %s, Amount = %.2f, Time_stamp = %s]]",
+            .format("[Transaction [Type = %s, Amount = %.2f, Time_stamp = %s]",
             type, amount, time_stamp.format(timeFormatter));
     }
 }

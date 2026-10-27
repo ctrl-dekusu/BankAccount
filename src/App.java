@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Test Case 1
-        BankAccount acc1 = new SavingsAccount("Account 1");
+        BankAccount acc1 = new SavingsAccount("Test 0");
         BankAccountManager manager1 = new BankAccountManager();
         manager1.addAccount(acc1);
         System.out.println();
