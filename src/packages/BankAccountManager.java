@@ -84,13 +84,9 @@ public class BankAccountManager implements Bank {
     public List<Transaction> sortTransactionsByAmount(
         List<Transaction> txList
     ) {
-        if (txList == null) {
-            return new ArrayList<>();
-        }
-
         return txList.stream()
                 .filter(t -> t != null)
                 .sorted(Comparator.comparingDouble(Transaction::getAmount))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

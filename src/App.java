@@ -31,7 +31,7 @@ public class App {
         acc1.deposit(-500);
 
         System.out.println();
-        acc1.getTransactionHistory();
+        acc1.printTransactions(acc1.getTransactionHistory());
 
         System.out.println();
         manager1.addAccount(new SavingsAccount("Test 1"));
@@ -42,9 +42,9 @@ public class App {
         manager1.getAccount(0);
         
         System.out.println();
-        
-        manager1.filterTransactionsAtOrAbove(500.00, acc1.getTransactionHistory());
+        acc1.printTransactions(manager1.filterTransactionsAtOrAbove(100, acc1.getTransactionHistory()));
 
-        manager1.sortTransactionsByAmount(acc1.getTransactionHistory());
+        System.out.println();
+        acc1.printTransactions(manager1.sortTransactionsByAmount(acc1.getTransactionHistory()));
     }
 }
