@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * AccountFrozenException.
+ * Frozen account exception
  */
 public class AccountFrozenException extends Exception {
     private String message;
