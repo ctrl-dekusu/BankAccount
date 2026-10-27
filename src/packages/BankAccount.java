@@ -124,14 +124,12 @@ public class BankAccount {
 
     // Lists the transaction history
     public List<Transaction> getTransactionHistory() {
-        System.out.println("Account: " + getOwnerName());
-        Iterator<Transaction> history = this.transactionHistory.iterator();
-
-        while (history.hasNext()) {
-            Transaction hist = history.next();
-            System.out.println(hist);
-        }
-
         return this.transactionHistory;
+    }
+
+    public void printTransactions(List<Transaction> transactions) {
+        for (Transaction t : transactions) {
+            System.out.println(t);
+        }
     }
 }
